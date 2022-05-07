@@ -11,7 +11,8 @@ logging.basicConfig(format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelnam
 logger = logging.getLogger(__name__)
 
 PORT = int(os.environ.get('PORT', '8443'))
-APP_NAME = os.getenv('APP_URL')
+TRADE_APP_URL = os.getenv('APP_URL')
+APP_NAME = os.getenv('APP_NAME')
 TOKEN = os.getenv('TOKEN')
 LOGIN_URL = 'get_authcode_url'
 STOCK_DATA_URL = 'get_data'
@@ -30,7 +31,7 @@ def help(update, context):
 
 
 def login(update, context):
-    url = f'{APP_NAME}{LOGIN_URL}'
+    url = f'{TRADE_APP_URL}{LOGIN_URL}'
     response = requests.get(url)
     chat_id = update.message.chat_id
     if response.status_code == 200:
@@ -41,7 +42,7 @@ def login(update, context):
 
 
 def post_stock_data(update, context):
-    url = f'{APP_NAME}{STOCK_DATA_URL}?stock={update.message.text}'
+    url = f'{TRADE_APP_URL}{STOCK_DATA_URL}?stock={update.message.text}'
     response = requests.get(url)
     chat_id = update.message.chat_id
     text = 'No such stock found'
