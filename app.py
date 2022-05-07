@@ -60,7 +60,7 @@ def post_stock_data(update, context):
             high = data['v']['high_price']
             low = data['v']['low_price']
             ltp = data['v']['lp']
-            text = f'**Name:** {name}\nLTP: ₹{ltp}\n**Change:** ₹{change}\n**Change Percentage:** {change_percentage}%\n**Previous Close:** ₹{previous_close}\n**Open:** ₹{open_price}\n**High:** ₹{high}\n**Low:** ₹{low}'
+            text = f'Name: {name}\nLTP: ₹{ltp}\nChange: ₹{change}\nChange Percentage: {change_percentage}%\nPrevious Close: ₹{previous_close}\nOpen: ₹{open_price}\nHigh: ₹{high}\nLow: ₹{low}'
     context.bot.send_message(chat_id=chat_id, text=text, reply_to_message_id=update.message.message_id)
 
 
