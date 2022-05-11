@@ -5,8 +5,11 @@ import requests
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 # Enable logging
+level = logging.INFO
+if os.getenv('LOG_LEVEL', 'info') == 'debug':
+    level = logging.DEBUG
 logging.basicConfig(format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+                    level=level)
 
 logger = logging.getLogger(__name__)
 
