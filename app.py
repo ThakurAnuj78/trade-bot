@@ -40,7 +40,7 @@ def login_handle(update, context):
     logger.debug(response.__dict__)
     chat_id = update.message.chat_id
     if response.status_code == 200:
-        text = response.content
+        text = response.content.decode("utf-8")
     else:
         text = 'No url found'
     context.bot.send_message(chat_id=chat_id, text=text)
