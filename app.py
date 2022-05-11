@@ -32,20 +32,22 @@ def help(update, context):
 
 def login_handle(update, context):
     url = f'{TRADE_APP_URL}{LOGIN_URL}'
-    logger.info(url)
+    logger.debug(url)
     response = requests.get(url)
+    logger.debug(response.__dict__)
     chat_id = update.message.chat_id
     if response.status_code == 200:
-        text=response.content
+        text = response.content
     else:
-        text='No url found'
+        text = 'No url found'
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
 def post_stock_data(update, context):
     url = f'{TRADE_APP_URL}{STOCK_DATA_URL}?stock={update.message.text}'
-    logger.info(url)
+    logger.debug(url)
     response = requests.get(url)
+    logger.debug(response.__dict__)
     chat_id = update.message.chat_id
     text = 'No such stock found'
     # print(response.__dict__)
