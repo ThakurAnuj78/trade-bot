@@ -30,8 +30,9 @@ def help(update, context):
     update.message.reply_text('Click below link for stock names.')
 
 
-def login(update, context):
+def login_handle(update, context):
     url = f'{TRADE_APP_URL}{LOGIN_URL}'
+    logger.info(url)
     response = requests.get(url)
     chat_id = update.message.chat_id
     if response.status_code == 200:
@@ -43,6 +44,7 @@ def login(update, context):
 
 def post_stock_data(update, context):
     url = f'{TRADE_APP_URL}{STOCK_DATA_URL}?stock={update.message.text}'
+    logger.info(url)
     response = requests.get(url)
     chat_id = update.message.chat_id
     text = 'No such stock found'
@@ -66,7 +68,7 @@ def post_stock_data(update, context):
 
 def error(update, context):
     """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
+    logger.error('Update "%s" caused error "%s"', update, context.error)
 
 
 def main():
@@ -83,7 +85,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler('login', login))
+    dp.add_handler(CommandHandler('login', login_handle))
 
     # on non command i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, post_stock_data))
